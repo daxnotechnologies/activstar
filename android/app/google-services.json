@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "403891179663",
+    "project_id": "activstar-dbac5",
+    "storage_bucket": "activstar-dbac5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403891179663:android:11f83c0c7b8cc6aa6b20fa",
+        "android_client_info": {
+          "package_name": "eu.activstar.ursus1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "403891179663-o0elt3oukiao83gp612ob5ebee7dgh77.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAh800MD41GAeuUCLiLyZrzfeXv2xMz-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403891179663-o0elt3oukiao83gp612ob5ebee7dgh77.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "403891179663-36oupthui9btii6enpggqduhkmbv5m9s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "eu.activstarApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>403891179663-36oupthui9btii6enpggqduhkmbv5m9s.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.403891179663-36oupthui9btii6enpggqduhkmbv5m9s</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>403891179663-jkt0nmqkehme1fefnk78ib1p9ouhf7a6.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA5wohLrGOngQnaIQ_5tjAP0Y2y9O5mgok</string>
+	<key>GCM_SENDER_ID</key>
+	<string>403891179663</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>eu.activstarApp</string>
+	<key>PROJECT_ID</key>
+	<string>activstar-dbac5</string>
+	<key>STORAGE_BUCKET</key>
+	<string>activstar-dbac5.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:403891179663:ios:d6a425d500d4599a6b20fa</string>
+</dict>
+</plist>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "529299125670",
+    "project_id": "testing-3b061",
+    "storage_bucket": "testing-3b061.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529299125670:android:367daea0f5e4d34dd2cb67",
+        "android_client_info": {
+          "package_name": "eu.activstar.ursus1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529299125670-gnsh26sj0lboo5si3qv6lael07b0532h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHf_9jxXTZ_s59kZAHZ1EIlWUwMou4fko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529299125670-gnsh26sj0lboo5si3qv6lael07b0532h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
