@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -80,24 +81,34 @@ class LocalNotificationService {
 
       //add current user email to the notification that is received
 
-        final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+        // final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+        //
+        // final NotificationDetails notificationDetails = NotificationDetails(
+        //   android: AndroidNotificationDetails(
+        //     "1",
+        //     "activstar-supplement",
+        //     importance: Importance.max,
+        //     priority: Priority.high,
+        //   ),
+        //   iOS: IOSNotificationDetails(),
+        // );
 
-        final NotificationDetails notificationDetails = NotificationDetails(
-          android: AndroidNotificationDetails(
-            "1",
-            "activstar-supplement",
-            importance: Importance.max,
-            priority: Priority.high,
-          ),
-          iOS: IOSNotificationDetails(),
-        );
+        print("No        aaaaaaaaaaaaaaaaaaaaa      big Picture");
 
-        await _notificationsPlugin.show(
-          id,
-          message.notification!.title,
-          message.notification!.body,
-          notificationDetails,
-        );
+
+        await AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: 10, channelKey: 'basic_channel', title: message.notification!.title, body: message.notification!.body,
+              displayOnBackground: true,
+              displayOnForeground: true
+          ));
+
+        // await _notificationsPlugin.show(
+        //   id,
+        //   message.notification!.title,
+        //   message.notification!.body,
+        //   notificationDetails,
+        // );
       } else {
         // if (message.notification!.android!.link != null) {
         //   final json3 = {
@@ -119,37 +130,49 @@ class LocalNotificationService {
         //     await docUser.add(json4);
         // }
 
-        final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+        print("big Picture");
+        print(message.notification!.android!.imageUrl);
 
-        final ByteArrayAndroidBitmap bigPicture = ByteArrayAndroidBitmap(
-            await _getByteArrayFromUrl(
-                '${message.notification!.android!.imageUrl}'));
+        // final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+        //
+        // final ByteArrayAndroidBitmap bigPicture = ByteArrayAndroidBitmap(
+        //     await _getByteArrayFromUrl(
+        //         '${message.notification!.android!.imageUrl}'));
+        //
+        // final BigPictureStyleInformation bigPictureStyleInformation =
+        //     BigPictureStyleInformation(bigPicture,
+        //         htmlFormatContentTitle: true, htmlFormatSummaryText: true);
+        //
+        // final NotificationDetails notificationDetails = NotificationDetails(
+        //   android: AndroidNotificationDetails(
+        //     "1",
+        //     "activstar-supplement",
+        //     importance: Importance.max,
+        //     priority: Priority.high,
+        //     styleInformation: bigPictureStyleInformation,
+        //   ),
+        //   iOS: IOSNotificationDetails(
+        //     presentAlert: true,
+        //     presentBadge: true,
+        //     presentSound: true,
+        //   ),
+        // );
 
-        final BigPictureStyleInformation bigPictureStyleInformation =
-            BigPictureStyleInformation(bigPicture,
-                htmlFormatContentTitle: true, htmlFormatSummaryText: true);
+        await AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: 5, channelKey: 'big_picture', title: message.notification!.title, body: message.notification!.body,
+              displayOnBackground: true,
+              displayOnForeground: true,
+              bigPicture: message.notification!.android!.imageUrl,
+            notificationLayout: NotificationLayout.BigPicture
+          ));
 
-        final NotificationDetails notificationDetails = NotificationDetails(
-          android: AndroidNotificationDetails(
-            "1",
-            "activstar-supplement",
-            importance: Importance.max,
-            priority: Priority.high,
-            styleInformation: bigPictureStyleInformation,
-          ),
-          iOS: IOSNotificationDetails(
-            presentAlert: true,
-            presentBadge: true,
-            presentSound: true,
-          ),
-        );
-
-        await _notificationsPlugin.show(
-          id,
-          message.notification!.title,
-          message.notification!.body,
-          notificationDetails,
-        );
+        // await _notificationsPlugin.show(
+        //   id,
+        //   message.notification!.title,
+        //   message.notification!.body,
+        //   notificationDetails,
+        // );
       }
 
       // .notification!.toMap().toString()

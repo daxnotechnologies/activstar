@@ -194,7 +194,7 @@ class _signInState extends State<signIn> {
                             InkWell(
                               onTap: () {
                                 launchUrl(Uri.parse("https://www.activstar.eu/register"),
-                                  mode: LaunchMode.externalApplication
+                                  mode: LaunchMode.inAppWebView
                                   );  
                               },
                               child: Text(

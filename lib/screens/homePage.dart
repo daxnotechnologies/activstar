@@ -8,6 +8,7 @@ import 'package:activstar/screens/notification_icon.dart';
 import 'package:activstar/screens/signIn.dart';
 import 'package:activstar/screens/testimonialView.dart';
 import 'package:activstar/services/notificationServices.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -98,6 +99,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     x = 0;
     randomItem();
+
     LocalNotificationService.initialize(context);
 
     ///gives you the message on which user taps
@@ -284,6 +286,27 @@ class _HomePageState extends State<HomePage> {
       }
     }
   }
+  TextEditingController _emailController = new TextEditingController();
+
+  String dropdownvalueFacebook = 'SK';
+
+  // List of items in our dropdown menu
+  var facebook = [
+    'SK',
+    'CZ',
+    'EN',
+    'DE'
+  ];
+
+  String dropdownvalueTelegram = 'SK';
+
+  // List of items in our dropdown menu
+  var telegram = [
+    'SK',
+    'CZ',
+    'EN',
+    'DE'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -353,7 +376,7 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         PopupMenuButton(
                                             onSelected: (value) {
-                                              if (value == 2) {
+                                              if (value == 3) {
                                                 signApi api = new signApi();
                                                 api.logout();
 
@@ -505,6 +528,15 @@ class _HomePageState extends State<HomePage> {
                                                         ),
                                                       );
                                                     });
+                                              }else if (value==2){
+                                                signApi sign = new signApi();
+                                                sign.deleteAccount();
+                                                Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                    builder: (context) =>
+                                                    signIn()));
+
                                               }
                                             },
                                             shape: RoundedRectangleBorder(
@@ -525,6 +557,16 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                     value: 1,
                                                   ),
+                                              PopupMenuItem(
+                                                child: Text(
+                                                  "Môj účet",
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                      'SFProDisplay',
+                                                      fontSize: 11),
+                                                ),
+                                                value: 2,
+                                              ),
                                                   PopupMenuItem(
                                                     child: Text(
                                                       "Odhlásiť sa",
@@ -533,8 +575,9 @@ class _HomePageState extends State<HomePage> {
                                                               'SFProDisplay',
                                                           fontSize: 11),
                                                     ),
-                                                    value: 2,
-                                                  )
+                                                    value: 3,
+                                                  ),
+
                                                 ]),
                                       ],
                                     ),
@@ -985,11 +1028,236 @@ class _HomePageState extends State<HomePage> {
                                             //Invitationnn hereeeeeeeeeeeeeeeeeeeeee
                                             GestureDetector(
                                               onTap: () {
-                                                launchUrl(
-                                                    Uri.parse(
-                                                        "https://www.activstar.eu/account"),
-                                                    mode: LaunchMode
-                                                        .externalApplication);
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return Dialog(
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                20.0)), //this right here
+                                                        child: Container(
+                                                          height: _size.height *
+                                                              0.75,
+                                                          width:
+                                                          _size.width * 0.9,
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                                            child: Column(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                                children: [
+                                                                  Text('Poslať známemu', style: TextStyle(
+                                                                      fontSize: 20,
+                                                                      color: Colors.black,
+                                                                      fontFamily:
+                                                                      'SFProDisplay',
+                                                                      fontWeight:
+                                                                      FontWeight.w700),),
+                                                                  Text('Emailová adresa vášho známeho', style: TextStyle(
+                                                                      fontSize: 11,
+                                                                      color: Colors.black,
+                                                                      fontFamily:
+                                                                      'SFProDisplay',
+                                                                      fontWeight:
+                                                                      FontWeight.w400),),
+                                                                  Container(
+                                                                    height: 60,
+                                                                    width: MediaQuery.of(context).size.width * 0.6,
+                                                                    decoration: BoxDecoration(
+                                                                      color: Colors.white,
+                                                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                      border: Border.all(color: Color(0xffE5E5E5), width: 2)
+                                                                    ),
+                                                                    child: Card(
+                                                                      elevation: 0.0,
+                                                                      color: Colors.transparent,
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets.all(4.0),
+                                                                        child: TextFormField(
+                                                                          validator:  (String? value) {
+                                                                            return null;
+                                                                          },
+                                                                          controller: _emailController,
+                                                                          decoration: const InputDecoration(
+                                                                              border: InputBorder.none,
+                                                                              hintText: "Email",
+                                                                              hintStyle: TextStyle(
+                                                                                fontFamily: 'SFProDisplay',
+                                                                                color: Colors.black,
+                                                                                fontSize: 16,)),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Text('Váš známy dostane email s týmito informáciami:', style: TextStyle(
+                                                                      fontSize: 11,
+                                                                      color: Colors.black,
+                                                                      fontFamily:
+                                                                      'SFProDisplay',
+                                                                      fontWeight:
+                                                                      FontWeight.w400),),
+
+                                                                  getCheckRow('Registrácia', 'Bezplatné členstvo a vlastný eshop'),
+                                                                  getCheckRow('Produktový katalóg', 'Aktuálna ponuka produktov'),
+                                                                  getCheckRow('Obchodná príležitosť', 'Spolupráca - marža, bonusy, renta'),
+                                                                  getCheckRow('Produktová ochutnávka', 'Ochutnávka + analýza zdravia'),
+                                                                  getCheckRow('Skúsenosti s produktami', 'Referencie našich odberateľov'),
+
+                                                                  GestureDetector(
+                                                                    onTap: () async{
+                                                                      signApi sign = new signApi();
+                                                                      var res = await sign.invitePerson(_emailController.text.trim());
+                                                                      Navigator.pop(context);
+                                                                    },
+                                                                    child: Container(
+                                                                      width: 145,
+                                                                      height: 40,
+                                                                      decoration: BoxDecoration(
+                                                                          color: Color(0xFFDEC13C),
+                                                                            borderRadius: BorderRadius.circular(5)),
+                                                                      child: const Center(
+                                                                        child: Text(
+                                                                          "ODOSLAŤ",
+                                                                          style: TextStyle(
+                                                                              fontFamily: 'SFProDisplay',
+                                                                              fontWeight: FontWeight.w600,
+                                                                              fontSize: 14,
+                                                                              color: Colors.white),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                    children: [
+                                                                      Container(
+                                                                        width: _size.width *
+                                                                            0.27,
+                                                                        height: 30,
+                                                                        decoration: BoxDecoration(
+                                                                            border: Border.all(color: Color(0xffDEC13C), width: 2)
+
+                                                                        ),
+                                                                        child: DropdownButtonHideUnderline(
+                                                                          child:  DropdownButton<String>(
+                                                                            // Initial Value
+                                                                            value: dropdownvalueFacebook,
+                                                                            // Down Arrow Icon
+                                                                            icon: const Icon(Icons.arrow_drop_down_outlined),
+                                                                            // Array list of items
+                                                                            items: facebook.map((String items) {
+                                                                              return DropdownMenuItem(
+                                                                                value: items,
+                                                                                child: Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                  children: [
+                                                                                    SizedBox(width: 5,),
+                                                                                    Icon(Icons.facebook, color: Color(0xff039BE5),),
+                                                                                    SizedBox(width: 5,),
+                                                                                    Text(items,
+                                                                                      style: TextStyle(
+                                                                                          fontFamily: 'SFProText',
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          fontSize: 13,
+                                                                                          color: Colors.black),),
+                                                                                  ],
+                                                                                ),
+                                                                              );
+                                                                            }).toList(),
+                                                                            // After selecting the desired option,it will
+                                                                            // change button value to selected value
+                                                                            onChanged: (String? newValue) async{
+                                                                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                              String? facebookLink = prefs.getString("fbShare");
+                                                                              String? temp = facebookLink?.substring(0, facebookLink.length - 2);
+                                                                              String facebookFinal = temp! + newValue!.toLowerCase();
+                                                                              print(facebookFinal);
+                                                                              if((facebookLink == null) || (facebookLink.length == 0)){
+
+                                                                              } else
+                                                                                launchUrl(
+                                                                                  Uri.parse(
+                                                                                      facebookLink),
+                                                                                  mode: LaunchMode
+                                                                                      .inAppWebView);
+                                                                              setState(() {
+                                                                                dropdownvalueFacebook = newValue!;
+                                                                              });
+
+                                                                            },
+                                                                          ),),
+
+                                                                      ),
+
+                                                                      Container(
+                                                                        width: _size.width *
+                                                                            0.27,
+                                                                        height: 30,
+                                                                        decoration: BoxDecoration(
+                                                                          border: Border.all(color: Color(0xffDEC13C), width: 2)
+
+                                                                        ),
+                                                                        child: DropdownButtonHideUnderline(
+                                                                          child: DropdownButton<String>(
+
+                                                                            // Initial Value
+                                                                            value: dropdownvalueTelegram,
+                                                                            // Down Arrow Icon
+                                                                            icon: const Icon(Icons.arrow_drop_down_outlined),
+                                                                            // Array list of items
+                                                                            items: telegram.map((String items) {
+                                                                              return DropdownMenuItem(
+                                                                                value: items,
+                                                                                child: Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                  children: [
+                                                                                    SizedBox(width: 5,),
+                                                                                    Icon(Icons.telegram_outlined, color: Color(0xff1976D2),),
+                                                                                    SizedBox(width: 5,),
+                                                                                    Text(items,
+                                                                                      style: TextStyle(
+                                                                                          fontFamily: 'SFProText',
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                          fontSize: 13,
+                                                                                          color: Colors.black),),
+                                                                                  ],
+                                                                                ),
+                                                                              );
+                                                                            }).toList(),
+                                                                            // After selecting the desired option,it will
+                                                                            // change button value to selected value
+                                                                            onChanged: (String? newValue) async{
+                                                                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                                              String? telegramLink = prefs.getString("telegramShare");
+                                                                              String? temp = telegramLink?.substring(0, telegramLink.length - 2);
+                                                                              String telegramFinal = temp! + newValue!.toLowerCase();
+                                                                              print(telegramFinal);
+                                                                              if((telegramLink == null) || (telegramLink.length == 0)){
+
+                                                                              } else
+                                                                                launchUrl(
+                                                                                    Uri.parse(
+                                                                                        telegramLink),
+                                                                                    mode: LaunchMode
+                                                                                        .inAppWebView);
+                                                                              setState(() {
+                                                                                dropdownvalueTelegram = newValue!;
+                                                                              });
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  )
+                                                                ]),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    });
                                               },
                                               child: Container(
                                                 padding: EdgeInsets.only(
@@ -1111,6 +1379,45 @@ class _HomePageState extends State<HomePage> {
         return randomNumber;
       }
     }
+  }
+
+  getCheckRow(String title, String description){
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(50, 5, 0, 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+        Container(
+          height: 30,
+          width: 30,
+          decoration: BoxDecoration(
+              color: Color(0xff00FF29),
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.black, width: 2)
+          ),
+          child: Icon(Icons.check, color: Colors.white, size: 25,),
+        ),
+        SizedBox(width: 30,),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          Text(title, style: TextStyle(
+              fontSize: 14,
+              color: Colors.black,
+              fontFamily:
+              'SFProText',
+              fontWeight:
+              FontWeight.w600),),
+          Text(description, style: TextStyle(
+              fontSize: 10,
+              color: Colors.black,
+              fontFamily:
+              'SFProText',
+              fontWeight:
+              FontWeight.w400),)
+        ],)
+      ],),
+    );
   }
 
   getDialog(Size _size) {

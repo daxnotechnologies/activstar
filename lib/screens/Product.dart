@@ -77,7 +77,7 @@ class _ProduktyState extends State<Produkty> {
                                 ),
                                 PopupMenuButton(
                                     onSelected: (value) {
-                                      if (value == 2) {
+                                      if (value == 3) {
                                         signApi api = new signApi();
                                         api.logout();
 
@@ -226,6 +226,15 @@ class _ProduktyState extends State<Produkty> {
                                                 ),
                                               );
                                             });
+                                      } else if (value==2){
+                                        signApi sign = new signApi();
+                                        sign.deleteAccount();
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    signIn()));
+
                                       }
                                     },
                                     shape: RoundedRectangleBorder(
@@ -236,25 +245,38 @@ class _ProduktyState extends State<Produkty> {
                                     icon: Icon(Icons.more_vert,
                                         size: _size.width * 0.07),
                                     itemBuilder: (context) => [
-                                          PopupMenuItem(
-                                            child: Text(
-                                              "O aplikácii",
-                                              style: TextStyle(
-                                                  fontFamily: 'SFProDisplay',
-                                                  fontSize: 11),
-                                            ),
-                                            value: 1,
-                                          ),
-                                          PopupMenuItem(
-                                            child: Text(
-                                              "Odhlásiť sa",
-                                              style: TextStyle(
-                                                  fontFamily: 'SFProDisplay',
-                                                  fontSize: 11),
-                                            ),
-                                            value: 2,
-                                          )
-                                        ]),
+                                      PopupMenuItem(
+                                        child: Text(
+                                          "O aplikácii",
+                                          style: TextStyle(
+                                              fontFamily:
+                                              'SFProDisplay',
+                                              fontSize: 11),
+                                        ),
+                                        value: 1,
+                                      ),
+                                      PopupMenuItem(
+                                        child: Text(
+                                          "Môj účet",
+                                          style: TextStyle(
+                                              fontFamily:
+                                              'SFProDisplay',
+                                              fontSize: 11),
+                                        ),
+                                        value: 2,
+                                      ),
+                                      PopupMenuItem(
+                                        child: Text(
+                                          "Odhlásiť sa",
+                                          style: TextStyle(
+                                              fontFamily:
+                                              'SFProDisplay',
+                                              fontSize: 11),
+                                        ),
+                                        value: 3,
+                                      ),
+
+                                    ]),
                                 // Icon(Icons.more_vert, size: _size.width * 0.07)
                               ],
                             )

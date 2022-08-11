@@ -31,7 +31,10 @@ class signApi {
       email = emaill; 
       Navigator.of(context).pop();
       print(jsonDecode(response.body)['access_token']);
-      return true;
+      if(await accountInfo())
+        return true;
+      else
+        return false;
     } else {
       Navigator.of(context).pop();
       if (json.decode(response.body)['message'] ==
@@ -59,9 +62,84 @@ class signApi {
     prefs.setBool('Logined', false);
     prefs.setString('access_token', "");
     access_token = "";
-    prefs.setString('email', "");
+    prefs.setString('email', '');
+    prefs.setString('fbShare', '');
+    prefs.setString('telegramShare', '');
     print(jsonDecode(response.body)['access_token']);
     return true;
   }
+
+  Future accountInfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? access_token = await prefs.getString('access_token');
+
+    Map<String,String> headers = {
+      "Content-Type": "application/json; charset=UTF-8" , "Authorization" : access_token!};
+    var response = await http.get(
+        Uri.parse(accountInfoUrl),
+        headers: headers
+    );
+    if (response.statusCode == 200) {
+      SharedPreferences prefs=await SharedPreferences.getInstance();
+      prefs.setString('fbShare', jsonDecode(response.body)['share']['facebook'].toString());
+      prefs.setString('telegramShare', jsonDecode(response.body)['share']['twitter'].toString());
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+  Future invitePerson(String email) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? access_token = await prefs.getString('access_token');
+    Map body ={'email': '$email'};
+
+    Map<String,String> headers = {
+      "Content-Type": "application/json; charset=UTF-8" , "Authorization" : access_token!};
+    var response = await http.post(
+        Uri.parse(inviteUrl),
+        body: jsonEncode(body),
+        headers: headers
+    );
+    if (response.statusCode == 200) {
+      if ((jsonDecode(response.body)['success']) == true)
+        return true;
+      else
+        return false;
+    } else {
+      return false;
+    }
+  }
+  Future deleteAccount() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? access_token = await prefs.getString('access_token');
+    Map body ={'confirm': 'YES'};
+
+    Map<String,String> headers = {
+      "Content-Type": "application/json; charset=UTF-8" , "Authorization" : access_token!};
+    var response = await http.post(
+        Uri.parse(deleteUrl),
+        body: jsonEncode(body),
+        headers: headers
+    );
+    if (response.statusCode == 200) {
+      print(jsonDecode(response.body));
+      if ((jsonDecode(response.body)['success']) == true){
+        prefs.setBool('Logined', false);
+        prefs.setString('access_token', "");
+        access_token = "";
+        prefs.setString('email', '');
+        prefs.setString('fbShare', '');
+        prefs.setString('telegramShare', '');
+        return true;
+      }
+      else
+        return false;
+    } else {
+      return false;
+    }
+  }
+
 
 }

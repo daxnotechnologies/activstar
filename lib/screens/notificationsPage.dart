@@ -279,7 +279,7 @@ class NotificationList extends StatelessWidget {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       fontFamily: 'SFProText', fontSize: 12),
-                                  maxLines: 3,
+                                  maxLines: 200,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
