@@ -89,12 +89,12 @@ class testimonialScreen extends StatelessWidget {
                             child: RichText(
                               text: TextSpan(
                                 children: [
-                                  TextSpan(
-                                      text: 'endTime is empty String ',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'SFProDisplay',
-                                      )),
+                                  // TextSpan(
+                                  //     text: 'endTime is empty String ',
+                                  //     style: TextStyle(
+                                  //       color: Colors.black,
+                                  //       fontFamily: 'SFProDisplay',
+                                  //     )),
                                   TextSpan(
                                       text: " Aktuality",
                                       style: TextStyle(

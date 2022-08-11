@@ -27,10 +27,12 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  awesome_notifications: ^0.6.21
   change_app_package_name: ^1.1.0
   cloud_firestore: ^3.1.17
   cloud_firestore_web: ^2.6.16
   cupertino_icons: ^1.0.2
+  eva_icons_flutter: ^3.1.0
   firebase_core: ^1.17.0
   firebase_messaging: 11.4.0
   flutter:
@@ -44,7 +46,6 @@ dependencies:
   http: ^0.13.4
   shared_preferences: ^2.0.13
   url_launcher: null
-  awesome_notifications: ^0.6.21
 
 dev_dependencies:
   flutter_test:

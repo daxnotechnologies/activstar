@@ -3,6 +3,7 @@ import 'package:activstar/models/productModel.dart';
 import 'package:activstar/screens/notification_icon.dart';
 import 'package:activstar/screens/signIn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -228,12 +229,168 @@ class _ProduktyState extends State<Produkty> {
                                             });
                                       } else if (value==2){
                                         signApi sign = new signApi();
-                                        sign.deleteAccount();
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    signIn()));
+                                        showDialog(context: context,
+                                            builder: (context) {
+                                              return Dialog(
+                                                backgroundColor: Colors.transparent,
+                                                child: Container(
+                                                    height: 200,
+                                                    width: MediaQuery.of(context).size.width * 0.6,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                        color: Colors.white
+                                                    ),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                        children: [
+                                                          Text(
+                                                            'Moj ucet',
+                                                            style: TextStyle(
+                                                                color: Colors.black,
+                                                                fontSize: 18,
+                                                                fontFamily: 'SFProDisplay',
+                                                                fontWeight: FontWeight.w600),
+                                                          ),
+
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              launchUrl(Uri.parse("https://www.activstar.eu/account"),
+                                                                  mode: LaunchMode.inAppWebView
+                                                              );
+                                                            },
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                Text(
+                                                                  'Zobrazit moj ucet',
+                                                                  style: TextStyle(
+                                                                      fontSize: 18,
+                                                                      fontFamily: 'SFProDisplay',
+                                                                      color: Colors.yellow,
+                                                                      fontWeight: FontWeight.w600),
+                                                                ),
+                                                                SizedBox(width: 2,),
+                                                                Icon(EvaIcons.externalLink,
+                                                                  color: Colors.yellow, size: 20,)
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              Navigator.pop(context);
+                                                              showDialog(context: context,
+                                                                  builder: (context) {
+                                                                    return Dialog(
+                                                                      backgroundColor: Colors.transparent,
+                                                                      child: Container(
+                                                                          height: 200,
+                                                                          width: MediaQuery.of(context).size.width * 0.6,
+                                                                          decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                                              color: Colors.white
+                                                                          ),
+                                                                          child: Padding(
+                                                                            padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                                            child: Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                              children: [
+                                                                                Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      'Vymazat ucet',
+                                                                                      style: TextStyle(
+                                                                                          color: Colors.black,
+                                                                                          fontSize: 18,
+                                                                                          fontFamily: 'SFProDisplay',
+                                                                                          fontWeight: FontWeight.w600),
+                                                                                    ),
+                                                                                    SizedBox(width: 20,),
+                                                                                    IconButton(
+                                                                                        onPressed: () {
+                                                                                          Navigator.pop(context);
+                                                                                        },
+                                                                                        icon: Icon(Icons.close, size: 22, color: Colors.black,)),
+                                                                                    SizedBox(width: 10,)
+                                                                                  ],
+                                                                                ),
+
+                                                                                Center(
+                                                                                  child: SizedBox(
+                                                                                    width: MediaQuery.of(context).size.width * 0.5,
+                                                                                    child: Text(
+                                                                                      'Ste si isty ze chcete naozaj vymazat svoj ucet',
+                                                                                      style: TextStyle(
+                                                                                        fontSize: 16,
+                                                                                        fontFamily: 'SFProDisplay',
+                                                                                        color: Colors.red,
+                                                                                        fontWeight: FontWeight.w600,),
+                                                                                      textAlign: TextAlign.center,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+
+                                                                                GestureDetector(
+                                                                                  onTap: () {
+                                                                                    sign.deleteAccount();
+                                                                                    Navigator.pop(context);
+                                                                                    Navigator.pushReplacement(
+                                                                                        context,
+                                                                                        MaterialPageRoute(
+                                                                                            builder: (context) =>
+                                                                                                signIn()));
+                                                                                  },
+                                                                                  child: Container(
+                                                                                    width: MediaQuery.of(context).size.width * 0.4,
+                                                                                    height: 40,
+                                                                                    decoration: BoxDecoration(
+                                                                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                      color: Colors.red,
+                                                                                    ),
+                                                                                    child: Center(
+                                                                                      child: Text(
+                                                                                        'VYMAZAT UCET',
+                                                                                        style: TextStyle(
+                                                                                            fontSize: 14,
+                                                                                            fontFamily: 'SFProDisplay',
+                                                                                            color: Colors.white,
+                                                                                            fontWeight: FontWeight.w600),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                )
+                                                                              ],),
+                                                                          )
+                                                                      ),
+                                                                    );
+                                                                  });
+                                                            },
+                                                            child: Container(
+                                                              width: MediaQuery.of(context).size.width * 0.4,
+                                                              height: 40,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                color: Colors.red,
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  'VYMAZAT UCET',
+                                                                  style: TextStyle(
+                                                                      fontSize: 14,
+                                                                      fontFamily: 'SFProDisplay',
+                                                                      color: Colors.white,
+                                                                      fontWeight: FontWeight.w600),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],),
+                                                    )
+                                                ),
+                                              );
+                                            });
 
                                       }
                                     },

@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants/constants.dart';
 import '../constants/navigation.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'articleScreen.dart';
 import 'notificationsPage.dart';
 
@@ -375,7 +376,7 @@ class _HomePageState extends State<HomePage> {
                                           width: 13,
                                         ),
                                         PopupMenuButton(
-                                            onSelected: (value) {
+                                            onSelected: (value) async{
                                               if (value == 3) {
                                                 signApi api = new signApi();
                                                 api.logout();
@@ -530,12 +531,169 @@ class _HomePageState extends State<HomePage> {
                                                     });
                                               }else if (value==2){
                                                 signApi sign = new signApi();
-                                                sign.deleteAccount();
-                                                Navigator.pushReplacement(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                    builder: (context) =>
-                                                    signIn()));
+                                                showDialog(context: context,
+                                                builder: (context) {
+                                                  return Dialog(
+                                                    backgroundColor: Colors.transparent,
+                                                    child: Container(
+                                                      height: 200,
+                                                      width: MediaQuery.of(context).size.width * 0.6,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                        color: Colors.white
+                                                      ),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                          children: [
+                                                          Text(
+                                                            'Moj ucet',
+                                                            style: TextStyle(
+                                                                color: Colors.black,
+                                                                fontSize: 18,
+                                                                fontFamily: 'SFProDisplay',
+                                                                fontWeight: FontWeight.w600),
+                                                          ),
+
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              launchUrl(Uri.parse("https://www.activstar.eu/account"),
+                                                                  mode: LaunchMode.inAppWebView
+                                                              );
+                                                            },
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                Text(
+                                                                  'Zobrazit moj ucet',
+                                                                  style: TextStyle(
+                                                                      fontSize: 18,
+                                                                      fontFamily: 'SFProDisplay',
+                                                                      color: Colors.yellow,
+                                                                      fontWeight: FontWeight.w600),
+                                                                ),
+                                                                SizedBox(width: 2,),
+                                                                Icon(EvaIcons.externalLink,
+                                                                  color: Colors.yellow, size: 20,)
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              Navigator.pop(context);
+                                                              showDialog(context: context,
+                                                                  builder: (context) {
+                                                                    return Dialog(
+                                                                      backgroundColor: Colors.transparent,
+                                                                      child: Container(
+                                                                          height: 200,
+                                                                          width: MediaQuery.of(context).size.width * 0.6,
+                                                                          decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                                              color: Colors.white
+                                                                          ),
+                                                                          child: Padding(
+                                                                            padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                                            child: Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                              children: [
+                                                                                Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      'Vymazat ucet',
+                                                                                      style: TextStyle(
+                                                                                          color: Colors.black,
+                                                                                          fontSize: 18,
+                                                                                          fontFamily: 'SFProDisplay',
+                                                                                          fontWeight: FontWeight.w600),
+                                                                                    ),
+                                                                                    SizedBox(width: 20,),
+                                                                                    IconButton(
+                                                                                      onPressed: () {
+                                                                                        Navigator.pop(context);
+                                                                                      },
+                                                                                      icon: Icon(Icons.close, size: 22, color: Colors.black,)),
+                                                                                    SizedBox(width: 10,)
+                                                                                  ],
+                                                                                ),
+
+                                                                                Center(
+                                                                                  child: SizedBox(
+                                                                                    width: MediaQuery.of(context).size.width * 0.5,
+                                                                                    child: Text(
+                                                                                      'Ste si isty ze chcete naozaj vymazat svoj ucet',
+                                                                                      style: TextStyle(
+                                                                                          fontSize: 16,
+                                                                                          fontFamily: 'SFProDisplay',
+                                                                                          color: Colors.red,
+                                                                                          fontWeight: FontWeight.w600,),
+                                                                                      textAlign: TextAlign.center,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+
+                                                                                GestureDetector(
+                                                                                  onTap: () {
+                                                                                    sign.deleteAccount();
+                                                                                    Navigator.pop(context);
+                                                                                    Navigator.pushReplacement(
+                                                                                        context,
+                                                                                        MaterialPageRoute(
+                                                                                        builder: (context) =>
+                                                                                        signIn()));
+                                                                                  },
+                                                                                  child: Container(
+                                                                                    width: MediaQuery.of(context).size.width * 0.4,
+                                                                                    height: 40,
+                                                                                    decoration: BoxDecoration(
+                                                                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                                      color: Colors.red,
+                                                                                    ),
+                                                                                    child: Center(
+                                                                                      child: Text(
+                                                                                        'VYMAZAT UCET',
+                                                                                        style: TextStyle(
+                                                                                            fontSize: 14,
+                                                                                            fontFamily: 'SFProDisplay',
+                                                                                            color: Colors.white,
+                                                                                            fontWeight: FontWeight.w600),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                )
+                                                                              ],),
+                                                                          )
+                                                                      ),
+                                                                    );
+                                                                  });
+                                                            },
+                                                            child: Container(
+                                                              width: MediaQuery.of(context).size.width * 0.4,
+                                                              height: 40,
+                                                              decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                                                                color: Colors.red,
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  'VYMAZAT UCET',
+                                                                  style: TextStyle(
+                                                                      fontSize: 14,
+                                                                      fontFamily: 'SFProDisplay',
+                                                                      color: Colors.white,
+                                                                      fontWeight: FontWeight.w600),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],),
+                                                      )
+                                                    ),
+                                                  );
+                                                });
+
 
                                               }
                                             },
@@ -1042,7 +1200,7 @@ class _HomePageState extends State<HomePage> {
                                                           height: _size.height *
                                                               0.75,
                                                           width:
-                                                          _size.width * 0.9,
+                                                          _size.width * 0.95,
                                                           child: Padding(
                                                             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                                                             child: Column(
@@ -1076,7 +1234,7 @@ class _HomePageState extends State<HomePage> {
                                                                       elevation: 0.0,
                                                                       color: Colors.transparent,
                                                                       child: Padding(
-                                                                        padding: const EdgeInsets.all(4.0),
+                                                                        padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                                                                         child: TextFormField(
                                                                           validator:  (String? value) {
                                                                             return null;
@@ -1109,9 +1267,92 @@ class _HomePageState extends State<HomePage> {
 
                                                                   GestureDetector(
                                                                     onTap: () async{
+
                                                                       signApi sign = new signApi();
                                                                       var res = await sign.invitePerson(_emailController.text.trim());
                                                                       Navigator.pop(context);
+                                                                      if(res == true){
+                                                                        showDialog(context: context,
+                                                                          builder: (context) {
+                                                                            return Dialog(
+                                                                              backgroundColor: Colors.transparent,
+                                                                              child: Container(
+                                                                                  height: 200,
+                                                                                  width: MediaQuery.of(context).size.width * 0.6,
+                                                                                  decoration: BoxDecoration(
+                                                                                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                                                      color: Colors.white
+                                                                                  ),
+                                                                                  child: Padding(
+                                                                                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                                                    child: Column(
+                                                                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                      children: [
+                                                                                        Container(
+                                                                                          height: 50,
+                                                                                          width: 50,
+                                                                                          decoration: BoxDecoration(
+                                                                                              shape: BoxShape.circle,
+                                                                                              border: Border.all(color: Colors.black, width: 1)
+                                                                                          ),
+                                                                                          child: Icon(EvaIcons.checkmark, color: Colors.green, size: 40,),
+                                                                                        ),
+                                                                                        Text(
+                                                                                          'Pozvanie Odoslať úspešne',
+                                                                                          style: TextStyle(
+                                                                                              color: Colors.black,
+                                                                                              fontSize: 18,
+                                                                                              fontFamily: 'SFProDisplay',
+                                                                                              fontWeight: FontWeight.w600),
+                                                                                        ),
+                                                                                      ],),
+                                                                                  )
+                                                                              ),
+                                                                            );
+                                                                          });
+                                                                      } else {
+                                                                        showDialog(context: context,
+                                                                            builder: (context) {
+                                                                              return Dialog(
+                                                                                backgroundColor: Colors.transparent,
+                                                                                child: Container(
+                                                                                    height: 200,
+                                                                                    width: MediaQuery.of(context).size.width * 0.6,
+                                                                                    decoration: BoxDecoration(
+                                                                                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                                                        color: Colors.white
+                                                                                    ),
+                                                                                    child: Padding(
+                                                                                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                                                      child: Column(
+                                                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                        children: [
+                                                                                          Container(
+                                                                                            height: 50,
+                                                                                            width: 50,
+                                                                                            decoration: BoxDecoration(
+                                                                                                shape: BoxShape.circle,
+                                                                                                border: Border.all(color: Colors.black, width: 1)
+                                                                                            ),
+                                                                                            child: Icon(EvaIcons.close, color: Colors.red, size: 40,),
+                                                                                          ),
+                                                                                          Text(
+                                                                                            'Pozvánka nebola odoslaná',
+                                                                                            style: TextStyle(
+                                                                                                color: Colors.black,
+                                                                                                fontSize: 18,
+                                                                                                fontFamily: 'SFProDisplay',
+                                                                                                fontWeight: FontWeight.w600),
+                                                                                          ),
+                                                                                        ],),
+                                                                                    )
+                                                                                ),
+                                                                              );
+                                                                            });
+                                                                      }
+
+
+
                                                                     },
                                                                     child: Container(
                                                                       width: 145,
@@ -1388,16 +1629,16 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
         Container(
-          height: 30,
-          width: 30,
+          height: 25,
+          width: 25,
           decoration: BoxDecoration(
               color: Color(0xff00FF29),
               shape: BoxShape.circle,
               border: Border.all(color: Colors.black, width: 2)
           ),
-          child: Icon(Icons.check, color: Colors.white, size: 25,),
+          child: Icon(Icons.check, color: Colors.white, size: 20,),
         ),
-        SizedBox(width: 30,),
+        SizedBox(width: 20,),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

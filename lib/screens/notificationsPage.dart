@@ -79,6 +79,15 @@ class _NotificationsPageState extends State<NotificationsPage> {
           color));
     });
     notifications.sort((a, b) => b.time.compareTo(a.time));
+    if(notifications.length > 20){
+      List<LocalNotifications> tempNoti = [];
+      for(int i = 0; i < 20; i++){
+        tempNoti.add(notifications[i]);
+      }
+      notifications = tempNoti;
+    }
+
+
     // return notifications;
     setState(() {
       notifications = notifications;
@@ -96,10 +105,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
       });
     }
 
-    var n = FirebaseFirestore.instance.collection('notifications').get();
+    var n = FirebaseFirestore.instance.collection('notifications').limit(5).get();
 
     n.then((docs) {
       docs.docs.forEach((element) async {
+        print("hqqqqqqqqqqqqqqqqqqqqqqqqqhqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
         if (element.data()['users'] != null) {
           if (!((element.data()['users'] as List)
               .map((item) => item as String)
